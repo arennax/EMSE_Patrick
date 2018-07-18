@@ -1,0 +1,33 @@
+\begin{table}
+\caption{Performance scores: MRE and SA}\label{samre}
+\begin{tabular}{|p{.95\linewidth}|}\hline
+The performance   for our effort estimators are measured in terms of MRE and SA, defined in this table.
+\\\hline
+{\bf MRE:}
+MRE is defined in terms of 
+AR,  the magnitude of the absolute residual. This is  computed from the difference between predicted and actual effort values:
+\[
+\mathit{AR} = |\mathit{actual}_i - \mathit{predicted}_i|
+\] 
+MRE is the magnitude of the relative error calculated by expressing AR as a ratio of the actual effort value; i.e., 
+\[
+\mathit{MRE} = \frac{|\mathit{actual}_i - \mathit{predicted}_i|}{\mathit{actual}_i}
+\]
+MRE has been criticized~\cite{foss2003simulation,kitchenham2001accuracy,korte2008confidence,port2008comparative,shepperd2000building,stensrud2003further} as being biased towards error underestimations. 
+\\\hline
+{\bf SA:}
+Because of issues with MRE, some researchers prefer the 
+use of other (more standardized) measures, such as  Standardized Accuracy (SA)~\cite{langdon2016exact,shepperd2012evaluating}.
+SA is defined in terms of 
+\[
+\mathit{MAE}=\frac{1}{N}\sum_{i=1}^n|\mathit{RE}_i-\mathit{EE}_i|
+\]
+where $N$ is the number of projects used for evaluating the performance, and $\mathit{RE}_i$ and $\mathit{EE}_i$ are the actual and estimated effort, respectively, for the project $i$. 
+SA uses MAE as follows:
+\[
+\mathit{SA} = (1-\frac{\mathit{MAE}_{P_{j}}}{\mathit{MAE}_{r_{guess}}})\times 100
+\]
+where $\mathit{MAE}_{P_{j}}$ is the MAE of the approach $P_j$ being evaluated and $\mathit{MAE}_{r_{\mathit{guess}}}$ is the MAE of a large number (e.g., 1000 runs) of random guesses. 
+Over many runs,  $\mathit{MAE}_{r_{\mathit{guess}}}$ will converge on simply using the sample mean~\cite{shepperd2012evaluating}. That is, SA represents how much better $P_j$ is than random guessing. Values near zero means that the prediction model $P_j$ is practically useless, performing little better than  random guesses~\cite{shepperd2012evaluating}. \\\hline
+\end{tabular}
+\end{table}

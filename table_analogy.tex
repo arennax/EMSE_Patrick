@@ -5,7 +5,7 @@
 
 \begin{tabular}{|p{.94\linewidth}|}\hline
 
-\begin{itemize}[leftmargin=0.1in]
+\begin{itemize}
 \item
 To measure    similarity between  $x,y$, 
 ABE uses $\sqrt{\sum_{i=1}^n w_i(x_i-y_i)^2}$ where  $w_i$ corresponds to {\em feature} weights applied to independent {\em features}. ABE0 uses a uniform weighting where $w_i=1$.
@@ -18,7 +18,7 @@ ABE0's {\em adaptation strategy} is to return the  effort   of the nearest $k=1$
 {\em Eight ways to make feature weighting}:
 Li {\it et al.}~\cite{li2009study} and Hall and Holmes~\cite{hall2003benchmarking} review 8 different {\em feature} weighting schemes.
 \item
-  {\em Three ways to discretize} (summarize numeric ranges into a few bins):
+{\em Three ways to discretize} (summarize numeric ranges into a few bins):
 Some {\em feature} weighting schemes require an initial discretization of continuous  columns. There are many discretization policies in the literature, including:
 (1)~equal frequency,
 (2)~equal width, 

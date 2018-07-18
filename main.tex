@@ -73,6 +73,8 @@ grestore
 \newcommand{\eq}[1]{Equation~\ref{eq:#1}}
 \newcommand{\tion}[1]{\S\ref{sect:#1}}
 
+
+
 \usepackage{url}
 %%% graph
 
@@ -393,6 +395,7 @@ CoGEE will accept data with any attributes.
 
 Whigham et al.'s ATLM method from TOSEM'15 is a multiple linear regression model which calculate the effort as $\mathit{effort} = \beta_0 + \sum_i\beta_i\times a_{i} +  \varepsilon_i$,  where $a_i$ are explanatory attributes and $\varepsilon_i$ are errors to the actual value. The prediction weights $\beta_i$ are determined using least square error estimation~\cite{neter1996applied}. Additionally, transformations are applied on the attributes to further minimize the error in the model. In case of categorical attributes the standard approach of ``dummy variables"~\cite{hardy1993regression} is applied. While, for continuous attributes, transformations such as logarithmic, square root,  or no transformation is employed such that the skewness of the attribute is minimum. It should be noted that, ATLM does not consider relatively complex techniques like using model residuals,  box transformations or step-wise regression (which are standard) when developing a linear regression model. The authors make this decision since they intend ATLM to be a simple baseline model rather than the ``best" model.
 
+\input{table_CART_para.tex}
 
 Another kind of algorithm-based estimation method are regression trees such as   CART~\cite{brieman84}.  
 CART is a  tree learner that divides a data set, then recurses
@@ -419,6 +422,9 @@ Before calculating similarity,  ABE normalizes   numerics  min..max to 0..1 (so 
 Then, ABE uses {\em feature} weighting to reduce the influence of less informative {\em features}.
 Finally, some  {\em adaption strategy} is applied  return a combination of  the dependent effort values seen in  the $k$ nearest analogies. For  details on ABE0 and ABEN, see \fig{featuretree} \& Table~\ref{tbl:aben}. 
 
+\input{table_analogy.tex}
+
+\input{figure_ABEN.tex}
 
 \subsection{Effort Estimation and  Hyperparameter Optimization}
 \label{sec:4}
@@ -473,6 +479,9 @@ against  prominent methods such as
 \subsection{OIL}
 \label{sec:5}
 
+
+\input{table_dataset.tex}
+
   OIL is  our  architecture for exploring hyperparameter optimization and effort estimation,
   Initially, our plan
 was to use standard hyperparameter  tuning for this task. Then we learned that standard data mining toolkits like scikit-learn~\cite{pedregosa2011scikit} did not include many of the effort estimation techniques; and (b) standard hyperparameter tuners can be  slow     (sklearn recommends a default runtime of 24 hours~\cite{sk18}).  Hence, we build OIL:
@@ -493,6 +502,8 @@ down to the lower layers to run the selected algorithms.
 
 \subsection{Optimizers}
 \label{sec:6}
+
+\input{table_data_num.tex}
 
 Once OIL's layers were  built, it was simple  to ``pop the top'' and replace the top
 layer with another optimizer.
@@ -544,6 +555,8 @@ till  the results from new generations were no better than before.
 
 \subsection{Data}
 
+\input{table_perfor_metric.tex}
+
 To assess OIL, we applied it to the 945 projects
 seen in nine    datasets from the SEACRAFT repository (http://tiny.cc/seacraft); see Table~\ref{table:dataset} and Table~\ref{table:dataset_c}. 
 This data was selected since it has been  widely  used in previous estimation research.
@@ -572,6 +585,7 @@ while for the others, we use $N=10$ bins.
 
 As a procedural detail, first we divided the data and then we applied the treatments. That is, all treatments saw the same training and test data.
 
+\input{figure_SK_example.tex}
 
 \subsection{Scoring Metrics}
 
@@ -615,8 +629,7 @@ Y &\in &\{\mathit{DE2},\mathit{DE8},\mathit{MOEA/D},\mathit{NSGA2},\mathit{RD40}
 \end{eqnarray}}
 Note that we do not tune CoGEE since, as shown in Table~\ref{tbl:runtime}, running that treatment even once is slow enough, let alone the hundred of re-runs required for additional tuning. Also, we do not tune ATLM since it was designed to be used ``off the shelf''.  Whigham et al.~\cite{Whigham:2015} declare that one of ATLM's most important features is that if does not need tuning.
 
-
-
+\input{table_results.tex}
 
 \section{Results}
  
@@ -653,6 +666,8 @@ Another losing treatment in these results was estimation-by-analogy. Prior to
 this study, we viewed most of the effort estimation methods as somewhat equivalent.
 But here we see that ABE achieves top-rank in only 5/18 of our data sets.  This implies that there is more useful structure in our  data than can be revealed
 by merely asking a few nearest neighbors for the effort estimates.
+
+\input{table_runtime.tex}
 
 \subsection{Answers to Research Questions}
 
@@ -804,6 +819,7 @@ or
 differential evolution
  \end{result}
 
+\input{table_para_dist.tex}
 
 \section{Threats to Validity}\label{sect:threats}
  \textbf{Internal Bias:} Many of  our methods contain stochastic random operators. To reduce the bias from random operators, we 
@@ -886,7 +902,7 @@ plans for future work include the following.
 e.g. neural nets, bayesian learners;
 \item Try other data pre-processors.
 We mentioned above how it was curious that
-max\_features was often less than 100\%.
+max features was often less than 100\%.
 This is a clear indication that, we
 might be able to further improve our estimations results by adding
 more intelligent feature selection to, say, CART.
@@ -914,51 +930,13 @@ much more research on better methods to tune software effort
 estimators
 To that end, we have placed all our scripts and data   on-line at http://blinded4review.
 
-\section*{Acknowledgements}
-
- Funding source grant number blinded for review.
-
-% For one-column wide figures use
-\begin{figure}
-% Use the relevant command to insert your figure file.
-% For example, with the graphicx package use
-  \includegraphics{example.eps}
-% figure caption is below the figure
-\caption{Please write your figure caption here}
-\label{fig:1}       % Give a unique label
-\end{figure}
-%
-% For two-column wide figures use
-\begin{figure*}
-% Use the relevant command to insert your figure file.
-% For example, with the graphicx package use
-  \includegraphics[width=0.75\textwidth]{example.eps}
-% figure caption is below the figure
-\caption{Please write your figure caption here}
-\label{fig:2}       % Give a unique label
-\end{figure*}
-%
-% For tables use
-\begin{table}
-% table caption is above the table
-\caption{Please write your table caption here}
-\label{tab:1}       % Give a unique label
-% For LaTeX tables use
-\begin{tabular}{lll}
-\hline\noalign{\smallskip}
-first & second & third  \\
-\noalign{\smallskip}\hline\noalign{\smallskip}
-number & number & number \\
-number & number & number \\
-\noalign{\smallskip}\hline
-\end{tabular}
-\end{table}
+\section*{Acknowledgement}
+Funding source grant number blinded for review.
 
 
-%\begin{acknowledgements}
-%If you'd like to thank anyone, place your comments here
-%and remove the percent signs.
-%\end{acknowledgements}
+% \begin{acknowledgements}
+% Funding source grant number blinded for review.
+% \end{acknowledgements}
 
 % BibTeX users please use one of
 %\bibliographystyle{spbasic}      % basic style, author-year citations
@@ -967,7 +945,7 @@ number & number & number \\
 %\bibliography{}   % name your BibTeX data base
 
 % Non-BibTeX users please use
-\begin{thebibliography}{}
+% \begin{thebibliography}{}
 %
 % and use \bibitem to create references. Consult the Instructions
 % for authors for reference list style.
@@ -987,7 +965,7 @@ number & number & number \\
 \bibliography{reference}
 
 
-\end{thebibliography}
+% \end{thebibliography}
 
 \end{document}
 
